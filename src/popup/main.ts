@@ -1,5 +1,5 @@
-import { createApp } from 'vue';
-import PopupApp from './PopupApp.vue';
-import '../shared/styles/app.css';
+import { createApp } from "vue";
+import PopupApp from "./PopupApp.vue";
+import "../shared/styles/extension.css";
 
-createApp(PopupApp).mount('#app');
+createApp(PopupApp).mount("#app");

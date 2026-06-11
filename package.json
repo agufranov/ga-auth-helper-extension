@@ -4,8 +4,9 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "dev": "vite --host 0.0.0.0",
-    "build": "vue-tsc --noEmit && vite build --mode popup && vite build --mode content",
+    "dev": "vite",
+    "build": "vue-tsc --noEmit && vite build",
+    "format": "prettier --write .",
     "preview": "vite preview"
   },
   "dependencies": {
@@ -14,8 +15,10 @@
     "vue": "latest"
   },
   "devDependencies": {
+    "@crxjs/vite-plugin": "^2.5.0",
     "@types/chrome": "latest",
     "@types/node": "latest",
+    "prettier": "latest",
     "typescript": "latest",
     "vue-tsc": "latest"
   }

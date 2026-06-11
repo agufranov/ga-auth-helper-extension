@@ -1,0 +1,45 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - "v*"
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build
+        run: npm run build
+
+      - name: Pack extension
+        run: |
+          mkdir -p package/ga-auth-helper-extension
+          cp -r dist/. package/ga-auth-helper-extension/
+          cd package && zip -r ../ga-auth-helper-extension.zip ga-auth-helper-extension
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: ga-auth-helper-extension.zip
+          body: |
+            ## Установка
+
+            Скачайте и распакуйте [ga-auth-helper-extension.zip](${{ github.server_url }}/${{ github.repository }}/releases/download/${{ github.ref_name }}/ga-auth-helper-extension.zip).
+
+            В Chrome перейдите по адресу `chrome://extensions`, нажмите «Загрузить распакованное расширение» и укажите папку с расширением.
